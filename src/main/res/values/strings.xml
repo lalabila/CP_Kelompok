@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Capstone Project</string>
+    <string name="action_search">Search</string>
+
+    <string name="title1">Bloodborne</string>
+    <string name="title2">Dark Souls III</string>
+    <string name="title3">Ghost of Tsushima</string>
+    <string name="title4">Detroit: Become Human</string>
+</resources>

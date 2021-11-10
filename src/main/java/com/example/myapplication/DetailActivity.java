@@ -43,9 +43,6 @@ public class DetailActivity extends AppCompatActivity {
     GameEntity gameEntity;
     ProgressDialog progressDialog;
 
-//    List<ModelTrailer> modelTrailer = new ArrayList<>();
-//    TrailerAdapter trailerAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,12 +107,6 @@ public class DetailActivity extends AppCompatActivity {
         }
 
     }
-
-
-//    private void showTrailer() {
-//        trailerAdapter = new TrailerAdapter(DetailMovieActivity.this, modelTrailer);
-//        rvTrailer.setAdapter(trailerAdapter);
-//    }
 
     public static void setWindowFlag(Activity activity, final int bits, boolean on) {
         Window window = activity.getWindow();

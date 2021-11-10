@@ -12,18 +12,33 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DetailActivity extends AppCompatActivity {
 
     Toolbar toolbar;
-    TextView Title, GameName, GameRating, GRD, GameGenre, GameDesc;
+    TextView Title;
+    TextView GameName;
+    TextView GameRating, Meta;
+    TextView GRD, PT;
+    TextView GameGenre;
     ImageView imgCover;
-    String Name, Released, Genre, Description, Cover;
+    String Name, Released, Genre, Cover, PlatformName;
     int Id;
+    int PlayTime, Metacritic;
     double Rating;
     GameEntity gameEntity;
     ProgressDialog progressDialog;
@@ -59,7 +74,9 @@ public class DetailActivity extends AppCompatActivity {
         Title = findViewById(R.id.Title);
         GameName = findViewById(R.id.GameName);
         GameRating = findViewById(R.id.GameRating);
+        Meta = findViewById(R.id.Meta);
         GRD = findViewById(R.id.GRD);
+        PT = findViewById(R.id.PT);
 //        rvTrailer = findViewById(R.id.rvTrailer);
 
         gameEntity = (GameEntity) getIntent().getSerializableExtra("detailGame");
@@ -68,13 +85,20 @@ public class DetailActivity extends AppCompatActivity {
             Id = gameEntity.getId();
             Name = gameEntity.getName();
             Rating = gameEntity.getRating();
+            Metacritic = gameEntity.getMetacritic();
+            PlayTime = gameEntity.getPlaytime();
             Released = gameEntity.getReleased();
             Cover = gameEntity.getBackgroundImage();
+//            PlatformName = gameEntity.getPlatformName();
 
             Title.setText(Name);
             GameName.setText(Name);
             GameRating.setText(Rating + "/5");
+            Meta.setText(String.valueOf(Metacritic));
+            PT.setText((PlayTime + " hours"));
             GRD.setText(Released);
+//            PN.setText(PlatformName);
+
             Title.setSelected(true);
             GameName.setSelected(true);
 
@@ -83,50 +107,10 @@ public class DetailActivity extends AppCompatActivity {
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imgCover);
 
-//            rvTrailer.setHasFixedSize(true);
-//            rvTrailer.setLayoutManager(new LinearLayoutManager(this));
-
-//            getTrailer();
-
         }
 
     }
 
-//    private void getTrailer() {
-//        progressDialog.show();
-//        AndroidNetworking.get(ApiEndpoint.BASEURL + ApiEndpoint.MOVIE_VIDEO + ApiEndpoint.APIKEY + ApiEndpoint.LANGUAGE)
-//                .addPathParameter("id", String.valueOf(Id))
-//                .setPriority(Priority.HIGH)
-//                .build()
-//                .getAsJSONObject(new JSONObjectRequestListener() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            progressDialog.dismiss();
-//                            JSONArray jsonArray = response.getJSONArray("results");
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                ModelTrailer dataApi = new ModelTrailer();
-//                                dataApi.setKey(jsonObject.getString("key"));
-//                                dataApi.setType(jsonObject.getString("type"));
-//                                modelTrailer.add(dataApi);
-//                                showTrailer();
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                            Toast.makeText(DetailMovieActivity.this,
-//                                    "Gagal menampilkan data!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(ANError anError) {
-//                        progressDialog.dismiss();
-//                        Toast.makeText(DetailActivity.this,
-//                                "Tidak ada jaringan internet!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
 
 //    private void showTrailer() {
 //        trailerAdapter = new TrailerAdapter(DetailMovieActivity.this, modelTrailer);

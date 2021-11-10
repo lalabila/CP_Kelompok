@@ -15,8 +15,12 @@ public class GameEntity implements Serializable {
     private int Id;
     private String Name;
     private double Rating;
+    private int Playtime;
+    private int PlatformId;
+    private int Metacritic;
     private String Released;
     private String BackgroundImage;
+    private String PlatformName;
 
     public GameEntity() {
     }
@@ -45,6 +49,14 @@ public class GameEntity implements Serializable {
         Rating = rating;
     }
 
+    public int getPlaytime() {
+        return Playtime;
+    }
+
+    public void setPlaytime(int playtime) {
+        Playtime = playtime;
+    }
+
     public String getReleased() {
 
         return Released;
@@ -61,4 +73,30 @@ public class GameEntity implements Serializable {
     public void setBackgroundImage(String backgroundImage) {
         BackgroundImage = backgroundImage;
     }
+
+    public int getMetacritic() {
+        return Metacritic;
+    }
+
+    public void setMetacritic(int metacritic) {
+        Metacritic = metacritic;
+    }
+
+    public int getPlatformId() {
+        return PlatformId;
+    }
+
+    public void setPlatformId(int platformId) {
+        PlatformId = platformId;
+    }
+
+    public String getPlatformName() {
+        return PlatformName;
+    }
+
+    public void setPlatformName(String platformName) {
+        PlatformName = platformName;
+    }
 }
+
+

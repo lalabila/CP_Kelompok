@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +28,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class GameFragment extends Fragment implements MainAdapter.onSelectData{
+public class GameFragment extends Fragment implements MainAdapter.onSelectData, GameAdapter.onSelectData {
 
     private RecyclerView TopGame, NewGame;
     private MainAdapter mainAdapter;
-//    private GameAdapter gameAdapter;
+    private GameAdapter gameAdapter;
     private ProgressDialog progressDialog;
     private List<GameEntity> gameTopGame = new ArrayList<>();
     private List<GameEntity> gameNewGame = new ArrayList<>();
@@ -55,9 +54,9 @@ public class GameFragment extends Fragment implements MainAdapter.onSelectData{
         TopGame.setLayoutManager(new CardSliderLayoutManager(getActivity()));
         new CardSnapHelper().attachToRecyclerView(TopGame);
 
-//        NewGame = rootView.findViewById(R.id.NewGame);
-//        NewGame.setLayoutManager(new LinearLayoutManager(getActivity()));
-//        NewGame.setHasFixedSize(true);
+        NewGame = rootView.findViewById(R.id.NewGame);
+        NewGame.setLayoutManager(new LinearLayoutManager(getActivity()));
+        NewGame.setHasFixedSize(true);
 
         getCoverflow();
 //        getGame();
@@ -83,7 +82,11 @@ public class GameFragment extends Fragment implements MainAdapter.onSelectData{
                                 dataApi.setId(jsonObject.getInt("id"));
                                 dataApi.setName(jsonObject.getString("name"));
                                 dataApi.setRating(jsonObject.getDouble("rating"));
+                                dataApi.setMetacritic(jsonObject.getInt("metacritic"));
+                                dataApi.setPlaytime(jsonObject.getInt("playtime"));
                                 dataApi.setReleased(jsonObject.getString("released"));
+//                                dataApi.setPlatformId(jsonObject.getInt("platform"));
+//                                dataApi.setPlatformName(jsonObject.getString("name"));
                                 dataApi.setBackgroundImage(jsonObject.getString("background_image"));
                                 gameTopGame.add(dataApi);
                                 showCoverflow();

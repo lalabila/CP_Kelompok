@@ -36,7 +36,6 @@ public class GameFragment extends Fragment implements MainAdapter.onSelectData, 
     private ProgressDialog progressDialog;
     private List<GameEntity> gameTopGame = new ArrayList<>();
     private List<GameEntity> gameNewGame = new ArrayList<>();
-
     public GameFragment() {
     }
 
@@ -59,7 +58,7 @@ public class GameFragment extends Fragment implements MainAdapter.onSelectData, 
         NewGame.setHasFixedSize(true);
 
         getCoverflow();
-//        getGame();
+        getGame();
 
         return rootView;
     }
@@ -105,43 +104,53 @@ public class GameFragment extends Fragment implements MainAdapter.onSelectData, 
                 });
     }
 
-//    private void getGame() {
-//        progressDialog.show();
-//        AndroidNetworking.get(ApiEndPoint.BASEURL + ApiEndPoint.APIKEY + ApiEndPoint.GAME_NEW)
-//                .setPriority(Priority.HIGH)
-//                .build()
-//                .getAsJSONObject(new JSONObjectRequestListener() {
-//                    @Override
-//                    public void onResponse(JSONObject response) {
-//                        try {
-//                            progressDialog.dismiss();
-//                            gameNewGame = new ArrayList<>();
-//                            JSONArray jsonArray = response.getJSONArray("results");
-//                            for (int i = 0; i < jsonArray.length(); i++) {
-//                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                                GameEntity dataApi = new GameEntity();
+    private void getGame() {
+        progressDialog.show();
+        AndroidNetworking.get(ApiEndPoint.BASEURL + ApiEndPoint.APIKEY + ApiEndPoint.GAME_NEW)
+                .setPriority(Priority.HIGH)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            progressDialog.dismiss();
+                            gameNewGame = new ArrayList<>();
+                            JSONArray jsonArray = response.getJSONArray("results");
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                GameEntity dataApi = new GameEntity();
+
+                                dataApi.setId(jsonObject.getInt("id"));
+                                dataApi.setName(jsonObject.getString("name"));
+                                dataApi.setRating(jsonObject.getDouble("rating"));
+                                dataApi.setMetacritic(jsonObject.getInt("metacritic"));
+                                dataApi.setPlaytime(jsonObject.getInt("playtime"));
+                                dataApi.setReleased(jsonObject.getString("released"));
+                                dataApi.setBackgroundImage(jsonObject.getString("background_image"));
 //
-//                                dataApi.setId(jsonObject.getInt("id"));
-//                                dataApi.setName(jsonObject.getString("name"));
-//                                dataApi.setRating(jsonObject.getDouble("rating"));
-//                                dataApi.setReleased(jsonObject.getString("released"));
-//                                dataApi.setBackgroundImage(jsonObject.getString("background_image"));
-//                                gameNewGame.add(dataApi);
-//                                showGame();
-//                            }
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                            Toast.makeText(getActivity(), "Gagal menampilkan data!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onError(ANError anError) {
-//                        progressDialog.dismiss();
-//                        Toast.makeText(getActivity(), "Tidak ada jaringan internet!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+//                                JSONArray ja = jsonObject.getJSONArray("platforms");
+//                                for (int j = 0; j < ja.length(); j++) {
+//                                    JSONObject jo = jsonArray.getJSONObject(j);
+//                                    JSONObject idp = jo.getJSONObject("platform");
+//                                    dataApi.setPlatformName(idp.getString("name"));
+//                                }
+
+                                gameNewGame.add(dataApi);
+                                showGame();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getActivity(), "Gagal menampilkan data!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getActivity(), "Tidak ada jaringan internet!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
     private void showCoverflow() {
         mainAdapter = new MainAdapter(getActivity(), gameTopGame, this);
@@ -149,11 +158,11 @@ public class GameFragment extends Fragment implements MainAdapter.onSelectData, 
         mainAdapter.notifyDataSetChanged();
     }
 
-//    private void showGame() {
-//        gameAdapter = new GameAdapter(getActivity(), gameNewGame, this);
-//        NewGame.setAdapter(gameAdapter);
-//        gameAdapter.notifyDataSetChanged();
-//    }
+    private void showGame() {
+        gameAdapter = new GameAdapter(getActivity(), gameNewGame, this);
+        NewGame.setAdapter(gameAdapter);
+        gameAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onSelected(GameEntity gameEntity) {

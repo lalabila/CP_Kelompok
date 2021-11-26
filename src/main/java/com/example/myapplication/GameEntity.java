@@ -13,7 +13,7 @@ import java.io.Serializable;
 public class GameEntity implements Serializable {
 
     private int Id;
-    private String Name;
+    private String Name, Description;
     private double Rating;
     private int Playtime;
     private int PlatformId;
@@ -82,12 +82,12 @@ public class GameEntity implements Serializable {
         Metacritic = metacritic;
     }
 
-    public int getPlatformId() {
-        return PlatformId;
+    public String getDescription() {
+        return Description;
     }
 
-    public void setPlatformId(int platformId) {
-        PlatformId = platformId;
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getPlatformName() {

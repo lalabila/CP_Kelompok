@@ -43,7 +43,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         final GameEntity data = items.get(position);
 
         holder.GameName.setText(data.getName());
-        holder.GameRating.setText((int) data.getRating());
+//        holder.GameRating.setText(data.getRating());
 //        holder.GRD.setText(data.getReleased());
 
         Glide.with(mContext)
@@ -73,7 +73,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
         public ImageView imgCover;
         public TextView GameName;
 //        public TextView GRD;
-        public TextView GameRating;
+//        public TextView GameRating;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -81,7 +81,7 @@ public class GameAdapter extends RecyclerView.Adapter<GameAdapter.ViewHolder> {
             imgCover = itemView.findViewById(R.id.imgCover);
             GameName = itemView.findViewById(R.id.GameName);
 //            GRD = itemView.findViewById(R.id.GRD);
-            GameRating = itemView.findViewById(R.id.GameRating);
+//            GameRating = itemView.findViewById(R.id.GameRating);
         }
     }
 }

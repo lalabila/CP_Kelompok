@@ -34,14 +34,16 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_coverflow, parent, false);
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_coverflow, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final GameEntity data = items.get(position);
+
+//        holder.GameName.setText(data.getName());
 
         Glide.with(mContext)
                 .load(data.getBackgroundImage())
@@ -66,10 +68,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imgCover;
+//        public TextView GameName;
 
         public ViewHolder(View itemView) {
             super(itemView);
             imgCover = itemView.findViewById(R.id.imgCover);
+//            GameName = itemView.findViewById(R.id.GameName);
         }
     }
 
